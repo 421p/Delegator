@@ -2,6 +2,7 @@
 #define __DELEGATOR__SUBJECT__DEFINED
 
 #include "delegate.hpp"
+#include <list>
 
 namespace delegator {
 
@@ -10,7 +11,7 @@ namespace delegator {
     template<class ...T>
     class Subject {
     private:
-        vector<delegate<T...> *> _listeners;
+        list<delegate<T...> *> _listeners;
     public:
         inline void subscribe(delegate<T...> &callable) {
             _listeners.push_back(&callable);

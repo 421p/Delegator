@@ -1,6 +1,7 @@
 #include <iostream>
 #include "delegator/subject.hpp"
 #include "delegator/delegate.hpp"
+#include <vector>
 
 using namespace std;
 using namespace delegator;
