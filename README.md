@@ -1,6 +1,7 @@
 # Delegator
 Another c++ event dispatching library
-now in c#-style
+
+now in c# style
 
 quick example:
 
