@@ -1,6 +1,5 @@
 #include <iostream>
-#include "delegator/subject.hpp"
-#include "delegator/delegate.hpp"
+#include "delegator/delegator.hpp"
 #include <vector>
 
 using namespace std;
@@ -20,15 +19,18 @@ public:
 int main() {
 
     observableCollection<string> collection;
-    delegate<string> closure;
-    closure = [](string item) {
+    auto closure = make_delegate<string>([](string item) {
         cout << "Item added: " << item << endl;
-    };
+    });
 
     collection.itemAdded += closure;
 
     collection.push_back("cool item");
     collection.push_back("avetage item");
+
+    collection.itemAdded -= closure;
+
+    collection.push_back("no catches");
 
     return 0;
 }
