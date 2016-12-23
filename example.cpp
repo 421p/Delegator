@@ -32,5 +32,12 @@ int main() {
 
     collection.push_back("no catches");
 
+    collection.itemAdded.once(make_delegate<string>([](string item) {
+        cout << "will work just once." << endl;
+    }));
+
+    collection.push_back("one");
+    collection.push_back("two");
+
     return 0;
 }

@@ -18,8 +18,14 @@ std::shared_ptr<Delegate<T...>> make_delegate(Callable callable)
 template<class ...T>
 class Subject {
   private:
-    std::list <std::shared_ptr<Delegate<T...>>> _listeners;
+    std::list<std::shared_ptr<Delegate<T...>>> _listeners;
+    std::list<std::shared_ptr<Delegate<T...>>> _onceListeners;
   public:
+    inline void once(std::shared_ptr<Delegate<T...>> callable)
+    {
+        _onceListeners.push_back(callable);
+    }
+
     inline void subscribe(std::shared_ptr<Delegate<T...>> callable)
     {
         _listeners.push_back(callable);
@@ -40,6 +46,12 @@ class Subject {
         for (auto &&closure : _listeners) {
             closure->operator()(args...);
         }
+
+        for (auto &&closure : _onceListeners) {
+            closure->operator()(args...);
+        }
+
+        _onceListeners.clear();
     }
 
     inline void operator+=(std::shared_ptr<Delegate<T...>> callable)
@@ -52,6 +64,7 @@ class Subject {
         unsubscribe(callable);
     }
 };
+
 }
 
 #endif
