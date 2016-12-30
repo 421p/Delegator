@@ -16,6 +16,15 @@ public:
     }
 };
 
+class Notifier {
+  public:
+    Subject<void> topic;
+
+    void notify() {
+        topic.publish();
+    }
+};
+
 int main() {
 
     observableCollection<string> collection;
@@ -38,6 +47,24 @@ int main() {
 
     collection.push_back("one");
     collection.push_back("two");
+
+    Notifier no;
+
+    auto kek = *make_delegate([] {
+        cout << "notification received" << endl;
+    });
+
+    no.topic += make_delegate([] {
+        cout << "notification received" << endl;
+    });
+
+    no.topic &= make_delegate([] {
+        cout << "will work just once." << endl;
+    });
+
+    no.notify();
+    no.notify();
+    no.notify();
 
     return 0;
 }
