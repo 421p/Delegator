@@ -3,5 +3,9 @@ project(Delegator)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES delegator/delegator.hpp example.cpp)
-add_executable(Delegator ${SOURCE_FILES})
+set(SOURCE_FILES
+        delegator/delegator.hpp
+        catch/catch.hpp
+        catch/catch_main.cpp tests/complex_test.cpp)
+
+add_executable(utests ${SOURCE_FILES})
