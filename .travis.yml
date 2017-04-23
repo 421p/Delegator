@@ -1,0 +1,9 @@
+language: cpp
+sudo: required
+compiler:
+  - gcc
+script:
+  - bash bootstrap.sh
+  - cmake .
+  - make utests
+  - ./utests
